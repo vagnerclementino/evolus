@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>Reading List</title>
+</head>
+<body>
+   
+   <div class="span12">
+    <table id="myTableId" dt:table="true">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                 <th>Convênio</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="paciente : ${pacientes}">
+                <td th:text="${paciente.getId()}"></td>
+                <td th:text="${paciente.getNome()}"></td>
+                <td th:text="${paciente.getConvenio().getNome()}"></td>
+                
+            </tr>
+        </tbody>
+    </table>
+</div>
+      
+</body>
+</html>
