@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,7 +32,7 @@ public class Convenio implements Serializable {
 	@Column(name="nome", nullable=false, length=200)
 	private String nome;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "convenio")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "convenio", cascade = CascadeType.ALL)
     @JsonBackReference
 	private List<Paciente> pacientes = new ArrayList<Paciente>();
 	
@@ -75,6 +76,31 @@ public class Convenio implements Serializable {
 
 	public void setPacientes(List<Paciente> pacientes) {
 		this.pacientes = pacientes;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Convenio other = (Convenio) obj;
+		if (Id == null) {
+			if (other.Id != null)
+				return false;
+		} else if (!Id.equals(other.Id))
+			return false;
+		return true;
 	}
 	
 }

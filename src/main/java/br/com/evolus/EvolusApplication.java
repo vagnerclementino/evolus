@@ -1,6 +1,9 @@
+
+
 package br.com.evolus;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -27,14 +30,20 @@ public class EvolusApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		Convenio convenvio1 = new Convenio(null, "11111111111", "UNIMED");
+		Convenio convenio1 = new Convenio(null, "11111111111", "UNIMED");
 		Convenio convenio2 = new Convenio(null,"000000000000" , "PROMED");
 		
-		Paciente paciente1 = new Paciente(null, "Vagner Clementino dos Santos", convenvio1);
+		Paciente paciente1 = new Paciente(null, "Vagner Clementino dos Santos", convenio1);
+		
 		Paciente paciente2 = new Paciente(null, "Andreza Vieira Lelis da Silva", convenio2);
+
+		Paciente paciente3 = new Paciente(null, "Maria de Lourdes Candido dos Santos", convenio1);
+
+		convenio1.getPacientes().addAll(Arrays.asList(paciente1,paciente3));
 		
-		convenioRepository.saveAll(Arrays.asList(convenvio1,convenio2));
+		convenio2.getPacientes().add(paciente2);
 		
+		convenioRepository.saveAll(Arrays.asList(convenio1,convenio2));
 		pacienteRepository.saveAll(Arrays.asList(paciente1,paciente2));
 				
 	}
