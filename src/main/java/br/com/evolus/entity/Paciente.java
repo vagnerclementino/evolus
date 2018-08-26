@@ -3,6 +3,8 @@
  */
 package br.com.evolus.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,16 +17,20 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
- * @author vagner
+ * @author Vagner Clementino
  *
  */
 
 @Entity
 @Table(name="paciente")
-public class Paciente {
+public class Paciente implements Serializable{
 	
+	
+	
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy =  GenerationType.AUTO)
+	@GeneratedValue(strategy =  GenerationType.IDENTITY)
 	@Column(name="id_paciente")
 	private Long Id;
 	
@@ -59,6 +65,43 @@ public class Paciente {
 	public void setNome(String nome) {
 		Nome = nome;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
+		return result;
+	}
+
+	public Paciente(Long id, String nome, Convenio convenio) {
+		super();
+		Id = id;
+		Nome = nome;
+		this.convenio = convenio;
+	}
+	
+	public Paciente() {
+		
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Paciente other = (Paciente) obj;
+		if (Id == null) {
+			if (other.Id != null)
+				return false;
+		} else if (!Id.equals(other.Id))
+			return false;
+		return true;
+	}
+
     
     
 

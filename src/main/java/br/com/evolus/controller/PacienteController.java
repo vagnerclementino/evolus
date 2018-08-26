@@ -14,7 +14,7 @@ import br.com.evolus.entity.Paciente;
 import br.com.evolus.service.PacienteService;
 
 @RestController
-@RequestMapping("/paciente/")
+@RequestMapping("/pacientes/")
 public class PacienteController {
 	
 	
